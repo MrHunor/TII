@@ -1,0 +1,13 @@
+﻿  header.cpp
+  P99.cpp
+C:\Users\Hunor\source\repos\P99\P99\P99.cpp(18,6): warning C4101: 'xy': unreferenced local variable
+C:\Users\Hunor\source\repos\P99\P99\P99.cpp(19,7): warning C4101: 'bit': unreferenced local variable
+C:\Users\Hunor\source\repos\P99\P99\P99.cpp(21,7): warning C4101: 'prepOp': unreferenced local variable
+C:\Users\Hunor\source\repos\P99\P99\P99.cpp(17,6): warning C4101: 'length': unreferenced local variable
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 455 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  P99.vcxproj -> C:\Users\Hunor\source\repos\P99\x64\Release\P99.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.
