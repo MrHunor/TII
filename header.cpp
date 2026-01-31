@@ -1,8 +1,5 @@
 #pragma warning(disable : 4996)
 #include <iostream>
-#include <stb_image.h>
-#include <stb_image_write.h>
-#include <algorithm>
 #include <string>
 #include <bitset>
 #include <vector>

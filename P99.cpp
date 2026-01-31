@@ -14,11 +14,6 @@ int main()
 	vector<bool> decoded;
 	string placeholder;
 	int w, h, channels;
-	int length;
-	int xy[2];
-	bool bit;
-	bool breakOut = false;
-	bool prepOp[4];
 	int stringI = 0;
 	int byteI = 0;
 	bool end = false;
@@ -26,23 +21,22 @@ int main()
 	cin >> placeholder;
 	if (placeholder == "E")
 	{
+		cout << "Enter filename:";
+		cin >> placeholder;
+		cout << "\nLoading image '" << placeholder << "'...\n";
+		unsigned char* img = stbi_load(placeholder.c_str(), &w, &h, &channels, 4);
+		if (img != nullptr)cout << "Loaded image.\n";
+		else
+		{
+			cout << "Failed to load image.";
+			return 0;
+		}
 		cout << "Enter text:";
 		cin >> placeholder;
 		string s = TextToAsciiB(placeholder);
 		cout << "\nText to AscciBinary:" << s << endl;
 		cout << "Size of text:" << s.length() << endl;
 		cout << "Encoding...\n";
-		cout << "Loading image 'input.png'...\n";
-		unsigned char* img = stbi_load("input.png", &w, &h, &channels, 4);
-		if (img != nullptr)cout << "Loaded images.\n";
-		else
-		{
-			cout << "Failed to load image.";
-			return 0;
-		}
-		cout << "Loaded image.\n";
-		cout << "Writing compare image...\n";
-		stbi_write_png("compare.png", w, h, 4, img, 4 * w);
 		//Magik
 		while (true)
 		{
@@ -67,23 +61,32 @@ int main()
 			}
 		}
 		cout << "Writing file 'output.png'...\n";
+		stbi_write_png_compression_level = 9;
 		stbi_write_png("output.png", w, h, 4, img, 4 * w);
 		stbi_image_free(img);
 		cout << "Finished.\n";
 	}
 	else if (placeholder == "D")
 	{
-		placeholder.clear();
-		cout << "Decoding...\n";
-		cout << "Loading 'output.png' and 'compare.png'...\n";
-		unsigned char* imgR = stbi_load("output.png", &w, &h, &channels, 4);
-		unsigned char* imgC = stbi_load("compare.png", &w, &h, &channels, 4);
-		if (imgR != nullptr && imgC != nullptr)cout << "Loaded images.\n";
-		else
+		cout << "Enter Encoded Filename:";
+		cin >> placeholder;
+		unsigned char* imgR = stbi_load(placeholder.c_str(), &w, &h, &channels, 4);
+		cout << "Loading image '" << placeholder << "'...";
+		if (imgR == nullptr)
 		{
-			cout << "Failed to load images.";
+			cout << "\nFailed to load image, exiting.";
 			return 0;
 		}
+		cout << "\nLoaded image.\n";
+		cout << "Enter Original Filename:";
+		cin >> placeholder;
+		unsigned char* imgC = stbi_load(placeholder.c_str(), &w, &h, &channels, 4);
+		if (imgC == nullptr)
+		{
+			cout << "\nFailed to load image, exiting.";
+			return 0;
+		}
+		cout << "\nLoaded image.\n";
 		while (!end)
 		{
 			cout << "byteI:" << byteI << endl;
@@ -113,7 +116,7 @@ int main()
 			if (i == false)cout << "0";
 			if (i == true)cout << "1";
 		}
-		cout << "\nWhich in ascci is:" << BitsToAscii(decoded);
+		cout << "\nWhich in ascci is:\n" << BitsToAscii(decoded) << endl;
 		stbi_image_free(imgR);
 		stbi_image_free(imgC);
 		cout << "Finished";
